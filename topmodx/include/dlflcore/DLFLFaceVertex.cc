@@ -42,7 +42,7 @@
 
 namespace DLFL {
 
-  uint DLFLFaceVertex::suLastID = 0;
+  unsigned long DLFLFaceVertex::suLastID = 0;
 
   // Default constructor
   DLFLFaceVertex::DLFLFaceVertex( bool bf )
@@ -371,7 +371,7 @@ namespace DLFL {
     return vindex;
   }
 
-  uint DLFLFaceVertex::getFaceID( ) const { return fpFPtr->getID(); }
+  unsigned long DLFLFaceVertex::getFaceID( ) const { return fpFPtr->getID(); }
 
   void advance(DLFLFaceVertexPtr& fvp) 
   {

@@ -54,15 +54,15 @@ namespace DLFL {
 
   class DLFLFaceVertex {
   public:
-    static void setLastID( uint id ) {
+    static void setLastID( unsigned long id ) {
       if( id > suLastID )
 				suLastID = id;
     };
   protected:
-    static uint suLastID;
+    static unsigned long suLastID;
 
-    static uint newID( ) {
-      uint temp = suLastID;
+    static unsigned long newID( ) {
+      unsigned long temp = suLastID;
       suLastID++;
       return temp;
     };
@@ -76,7 +76,7 @@ namespace DLFL {
                                                       // Used in reading OBJ files
                                                       // Default value is 'false'
   protected :
-    uint               uID;                            // Id for face vertex
+    unsigned long      uID;                            // Id for face vertex
     uint               index;                         // Index for use in file output
     DLFLEdgePtr        epEPtr;                        // Pointer to the Edge
     DLFLFacePtr        fpFPtr;                        // Pointer to the Face
@@ -94,7 +94,7 @@ namespace DLFL {
     void assignID( ) {
       // uID = DLFLFaceVertex::newID();
 			//std::cout << this;
-			uID = (unsigned int) this;
+			uID = (unsigned long)this;
 			//std::cout << "->" << uID << std::endl;
     };
 
@@ -125,16 +125,16 @@ namespace DLFL {
 
     // Query Functions
     uint getIndex( ) const { return index; };
-    uint getID( ) { assignID(); return uID; };
+    unsigned long getID( ) { assignID(); return uID; };
     DLFLFaceVertexType getType( ) const { return fvtType; };
     DLFLVertexType getVertexType( ) const { return vertex->getType(); };
     DLFLVertexPtr getVertexPtr( ) const { return vertex; };
     DLFLEdgePtr getEdgePtr( ) const { return epEPtr; };
     DLFLFaceVertexPtr getOppositeCorner( ) { return epEPtr->getOtherFaceVertexPtr(this); };
 		DLFLFacePtr getFacePtr( ) const { if (fpFPtr) return fpFPtr; else return NULL; };
-    uint getVertexID( ) const { return vertex->getID(); };
-    uint getFaceID( ) const;
-    uint getEdgeID( ) const { return epEPtr->getID(); };
+    unsigned long getVertexID( ) const { return vertex->getID(); };
+    unsigned long getFaceID( ) const;
+    unsigned long getEdgeID( ) const { return epEPtr->getID(); };
     Vector3d getNormal( ) const { return normal; };
     Vector3d getVertexCoords( ) const { return vertex->coords; };
     Vector2d getTexCoords( ) const { return texcoord; };

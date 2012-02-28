@@ -359,7 +359,7 @@ public :
     while ( efirst != elast ) {
 			edgeMap.erase((*efirst)->getID());
       (*efirst)->makeUnique();
-			edgeMap[(*efirst)->getID()] = (unsigned int)(*efirst);
+			edgeMap[(*efirst)->getID()] = (unsigned long)(*efirst);
       ++efirst;
     }
   }
@@ -370,7 +370,7 @@ public :
     while ( ffirst != flast ) {
 			faceMap.erase((*ffirst)->getID());
       (*ffirst)->makeUnique();
-			faceMap[(*ffirst)->getID()] = (unsigned int)(*ffirst);
+			faceMap[(*ffirst)->getID()] = (unsigned long)(*ffirst);
       ++ffirst;
     }
   };
@@ -414,7 +414,7 @@ public :
     // Insert the pointer.
     // **** WARNING!!! **** Pointer will be freed when list is deleted
     edge_list.push_back(edgeptr);
-		edgeMap[edgeptr->getID()] = (unsigned int)edgeptr;
+		edgeMap[edgeptr->getID()] = (unsigned long)edgeptr;
   };
 
   void addFace(const DLFLFace& face);               // Insert a copy
@@ -426,7 +426,7 @@ public :
       // If Face doesn't have a material assigned to it, assign the default material
 	    faceptr->setMaterial(matl_list.front());
     face_list.push_back(faceptr);
-		faceMap[faceptr->getID()] = (unsigned int)faceptr;
+		faceMap[faceptr->getID()] = (unsigned long)faceptr;
   };
 
   DLFLVertexPtr getVertexPtr(uint index) const {
