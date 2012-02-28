@@ -110,7 +110,7 @@ macx {
 	QMAKE_LFLAGS += -L/usr/lib
 
 	CONFIG(WITH_PYTHON){
-		INCLUDEPATH += /Library/Frameworks/Python.framework/Versions/2.5/include/python2.5 
+		INCLUDEPATH += /Library/Frameworks/Python.framework/Versions/2.5/include/python2.6
 		QMAKE_LFLAGS += -L/Library/Frameworks/Python.framework 
 		LIBS += -framework Python
 	}
@@ -129,8 +129,8 @@ macx {
 	DEFINES *= LINUX
 	
 	CONFIG(WITH_PYTHON){
-		INCLUDEPATH += /usr/include/python2.5
-		LIBS += -lpython2.5 -L/usr/lib/python2.5/config
+		INCLUDEPATH += /usr/include/python2.6
+		LIBS += -lpython2.6 -L/usr/lib/python2.6/config
 	}
 	CONFIG(WITH_SPACENAV){
 
