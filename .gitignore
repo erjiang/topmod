@@ -1,0 +1,8 @@
+# Compiled source #
+###################
+*.o
+*.so
+
+# Autogen'd translation #
+#########################
+*.qm
