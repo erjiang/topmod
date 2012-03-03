@@ -129,7 +129,6 @@
 	<!-- <file>assistant.app</file> -->
 	<!--translation files (*.qm)-->
 	<file>lang/topmod_en.qm</file>
-	<file>lang/topmod_en_us.qm</file>
 	<file>lang/topmod_es.qm</file>
 	<file>lang/topmod_fr.qm</file>
 	<file>lang/topmod_it.qm</file>
@@ -138,3 +137,4 @@
 	<file>images/commandcompleter.png</file>
 </qresource>
 </RCC>
+
