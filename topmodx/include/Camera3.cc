@@ -73,26 +73,31 @@ void Camera::Reset() {
 
 void Camera::HandleMouseEvent(Qt::MouseButton button, QEvent::Type state, int x, int y) {
 
-  MOUSE.set(x,y,0);
-  MOUSEBUTTON=button;
-	CONSTRAINED_AXIS.set(0,0,0);
-	// int mod = glutGetModifiers();
-  if( QApplication::keyboardModifiers() == Qt::AltModifier){
-    ALT_DOWN=1;
-    SHIFT_DOWN=0;
-  }
-  else if( QApplication::keyboardModifiers() == (Qt::AltModifier | Qt::ShiftModifier) ){
-	  ALT_DOWN=1;
-    SHIFT_DOWN=1;
-  }
-	else{
-    ALT_DOWN=0;
-    SHIFT_DOWN=0;
-  }
-	if (state == QEvent::MouseButtonRelease){
-		ALT_DOWN=0;
-		SHIFT_DOWN=0;
-	}
+    MOUSE.set(x,y,0);
+    MOUSEBUTTON=button;
+    CONSTRAINED_AXIS.set(0,0,0);
+    // int mod = glutGetModifiers();
+    if (state == QEvent::MouseButtonRelease){
+        MOUSEBUTTON = Qt::NoButton;
+        ALT_DOWN=0;
+        SHIFT_DOWN=0;
+    }
+    else if( QApplication::keyboardModifiers() == Qt::AltModifier){
+        ALT_DOWN=1;
+        SHIFT_DOWN=0;
+    }
+    else if( QApplication::keyboardModifiers() == (Qt::AltModifier | Qt::ShiftModifier) ){
+        ALT_DOWN=1;
+        SHIFT_DOWN=1;
+    }
+    else if( QApplication::keyboardModifiers() == Qt::ShiftModifier) {
+        SHIFT_DOWN = 1;
+        ALT_DOWN = 0;
+    }
+    else{
+        ALT_DOWN=0;
+        SHIFT_DOWN=0;
+    }
 }
 
 
@@ -171,7 +176,7 @@ void OrthoCamera::SetProjection(int WinX, int WinY) {
 
 
 void OrthoCamera::HandleMouseMotion(int x, int y, int WinX, int WinY) {
-  if(ALT_DOWN==1)	{
+  if(SHIFT_DOWN && MOUSEBUTTON == Qt::MidButton)	{
     Vector3d looking = EYE-CENTER;
     Vector3d RIGHT = normalized(UP%looking);
     float dist = norm(looking);
@@ -258,46 +263,46 @@ void PerspCamera::SetProjection(int WinX, int WinY) {
 
 
 void PerspCamera::HandleMouseMotion(int x, int y,int WinX, int WinY) {
-  if(ALT_DOWN==1){
+  if(MOUSEBUTTON == Qt::MidButton){
     Vector3d looking = EYE-CENTER;
     Vector3d RIGHT = normalized(UP%looking);
     float dist = norm(looking);
     float viewWidth = dist;
     float pixelToWorld = viewWidth/WinY;
     Vector3d AXIS;
-    if(MOUSEBUTTON==Qt::LeftButton) {
-			// 		  if(SHIFT_DOWN==1) {
-			//         if(norm(CONSTRAINED_AXIS)==0){
-			//           if(abs(x-MOUSE[0])>abs(y-MOUSE[1]))
-			// 		  CONSTRAINED_AXIS=HOMEUP;
-			// 		else
-			// 		  CONSTRAINED_AXIS=RIGHT;
-			// 	}
-			// 	AXIS=((x-MOUSE[0])*UP*CONSTRAINED_AXIS+(y-MOUSE[1])*RIGHT*CONSTRAINED_AXIS)*normalized(CONSTRAINED_AXIS);
-			// }
-			// else
-			//if shift is pressed then do a pan
-			if (SHIFT_DOWN==1) {
-				CENTER = CENTER - RIGHT*(x-MOUSE[0])*pixelToWorld + UP*(y-MOUSE[1])*pixelToWorld;
-	      EYE = EYE - RIGHT*(x-MOUSE[0])*pixelToWorld + UP*(y-MOUSE[1])*pixelToWorld;
-      }
-			else {
-	      AXIS = normalized((x-MOUSE[0])*UP + (y-MOUSE[1])*RIGHT);
-				
-	      Vector3d RtRot = normalized(AXIS%looking);
-	      float omega = -.005;
-	      float mouseDist = sqrt((x-MOUSE[0])*(x-MOUSE[0])+(y-MOUSE[1])*(y-MOUSE[1]));
-	      EYE = looking*cos(omega*mouseDist)+norm(looking)*RtRot*sin(omega*mouseDist);
-	      EYE=EYE+CENTER;
-	      RIGHT = normalized(RIGHT - (RIGHT*HOMEUP)*HOMEUP);
-	      UP = -normalized(RIGHT % looking);
-			}
+    if(1) { // panning
+        // 		  if(SHIFT_DOWN==1) {
+        //         if(norm(CONSTRAINED_AXIS)==0){
+        //           if(abs(x-MOUSE[0])>abs(y-MOUSE[1]))
+        // 		  CONSTRAINED_AXIS=HOMEUP;
+        // 		else
+        // 		  CONSTRAINED_AXIS=RIGHT;
+        // 	}
+        // 	AXIS=((x-MOUSE[0])*UP*CONSTRAINED_AXIS+(y-MOUSE[1])*RIGHT*CONSTRAINED_AXIS)*normalized(CONSTRAINED_AXIS);
+        // }
+        // else
+        //if shift is pressed then do a pan
+        if (SHIFT_DOWN==1) {
+            CENTER = CENTER - RIGHT*(x-MOUSE[0])*pixelToWorld + UP*(y-MOUSE[1])*pixelToWorld;
+            EYE = EYE - RIGHT*(x-MOUSE[0])*pixelToWorld + UP*(y-MOUSE[1])*pixelToWorld;
+        }
+        else {
+            AXIS = normalized((x-MOUSE[0])*UP + (y-MOUSE[1])*RIGHT);
+
+            Vector3d RtRot = normalized(AXIS%looking);
+            float omega = -.005;
+            float mouseDist = sqrt((x-MOUSE[0])*(x-MOUSE[0])+(y-MOUSE[1])*(y-MOUSE[1]));
+            EYE = looking*cos(omega*mouseDist)+norm(looking)*RtRot*sin(omega*mouseDist);
+            EYE=EYE+CENTER;
+            RIGHT = normalized(RIGHT - (RIGHT*HOMEUP)*HOMEUP);
+            UP = -normalized(RIGHT % looking);
+        }
     }
 	
-    else if(MOUSEBUTTON==Qt::MidButton) {
-      CENTER = CENTER - RIGHT*(x-MOUSE[0])*pixelToWorld + UP*(y-MOUSE[1])*pixelToWorld;
-      EYE = EYE - RIGHT*(x-MOUSE[0])*pixelToWorld + UP*(y-MOUSE[1])*pixelToWorld;
-    }
+//    else if(MOUSEBUTTON==Qt::MidButton) {
+//      CENTER = CENTER - RIGHT*(x-MOUSE[0])*pixelToWorld + UP*(y-MOUSE[1])*pixelToWorld;
+//      EYE = EYE - RIGHT*(x-MOUSE[0])*pixelToWorld + UP*(y-MOUSE[1])*pixelToWorld;
+//    }
   
     else if(MOUSEBUTTON==Qt::RightButton)
       EYE=EYE-(normalized(looking))*(x-MOUSE[0]+y-MOUSE[1])*pixelToWorld;

@@ -1,7 +1,7 @@
 # version info : code from -- http://wiki.qtcentre.org/index.php?title=Version_numbering_using_QMake
 VERSION = $$system(git log -1 --pretty=format:%H | cut -c 1-8)
 #!isEmpty(VERSION){
-	VERSION = 2.$${VERSION}
+	VERSION = 2-git-$${VERSION}
 	VERSTR = '\\"$${VERSION}\\"'  # place quotes around the version string
 	DEFINES += VER=\"$${VERSTR}\" # create a VER macro containing the version string
 #} 

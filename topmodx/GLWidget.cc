@@ -1608,10 +1608,10 @@ void GLWidget::wheelEvent(QWheelEvent *event) {
 }
 void GLWidget::mousePressEvent(QMouseEvent *event) {
 	
-  if ( QApplication::keyboardModifiers() == Qt::AltModifier || 
-       (event->buttons() == Qt::LeftButton && QApplication::keyboardModifiers() == (Qt::ShiftModifier | Qt::AltModifier)) ){
+  if ( event->buttons() == Qt::MidButton ||
+       QApplication::keyboardModifiers() & (Qt::ShiftModifier | Qt::AltModifier) ) {
     mCamera->HandleMouseEvent(event->button(), event->type(), event->x(), event->y());
-    repaint();	
+    repaint();
   }	
   else event->ignore();
 	
@@ -1681,10 +1681,10 @@ void GLWidget::mousePressEvent(QMouseEvent *event) {
 
 // this has been modified for the QT interface, so it handles focus automatically
 void GLWidget::mouseMoveEvent(QMouseEvent *event) {	
-  if ( QApplication::keyboardModifiers() == Qt::AltModifier || 
-       (event->buttons() == Qt::LeftButton && QApplication::keyboardModifiers() == (Qt::ShiftModifier | Qt::AltModifier)) ){
+  if ( event->buttons() == Qt::MidButton ||
+       QApplication::keyboardModifiers() & (Qt::ShiftModifier | Qt::AltModifier) ) {
     mCamera->HandleMouseMotion(event->x(),event->y(), width(), height() );
-    repaint();	
+    repaint();
   }	
   else event->ignore();
 	
@@ -1710,8 +1710,8 @@ void GLWidget::mouseMoveEvent(QMouseEvent *event) {
 }
 
 void GLWidget::mouseReleaseEvent(QMouseEvent *event) {
-  if ( QApplication::keyboardModifiers() == Qt::AltModifier || 
-       (event->buttons() == Qt::LeftButton && QApplication::keyboardModifiers() == (Qt::ShiftModifier | Qt::AltModifier)) ){
+  if ( event->button() == Qt::MidButton ||
+       QApplication::keyboardModifiers() & (Qt::ShiftModifier | Qt::AltModifier) ) {
     mCamera->HandleMouseEvent(event->button(), event->type(), event->x(), event->y());
     repaint();	
   }	
