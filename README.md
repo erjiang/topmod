@@ -8,6 +8,6 @@ This repo contains a git mirror of the original code from
 code.google.com/p/topmod along with some fixes to get it to compile
 on a more modern Linux system.
 
-You can still find the original website at:
+You can find the TopMod website at:
 
 http://people.tamu.edu/~ergun/research/topology/index.html
