@@ -10,6 +10,10 @@ This repo contains a git mirror of the original code from
 code.google.com/p/topmod along with some fixes to get it to compile
 on a more modern Linux system.
 
-You can find the TopMod website at:
+You can find some info about TopMod on Prof. Akleman's website at:
 
 http://people.tamu.edu/~ergun/research/topology/index.html
+
+and on the old Google Sites page:
+
+https://sites.google.com/site/topmod3d/
