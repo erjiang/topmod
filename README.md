@@ -10,4 +10,4 @@ on a more modern Linux system.
 
 You can still find the original website at:
 
-http://www.viz.tamu.edu/faculty/ergun/research/topology/index.html
+http://people.tamu.edu/~ergun/research/topology/index.html
